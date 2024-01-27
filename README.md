@@ -1,0 +1,1 @@
+# historical-funding-rates-fetcher
