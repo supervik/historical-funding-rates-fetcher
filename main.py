@@ -1,33 +1,30 @@
-import exchanges
+import importlib
 
 # Enter exchange name: binance, bybit, gate, htx, kucoin, mexc, dydx
 EXCHANGE = "dydx"
 # Enter the symbol in the format: BTC-USDT
 SYMBOL = "ETH-USDT"
 
-# SYMBOL = "BTC/USDT:USDT"
-# htx: BTC-USDT
-# kucoin: XBTUSDTM
-# gate: BTC_USDT
-# bybit: BTCUSDT or BTCPERP or BTCUSD
-# binance: BTCUSDT
-# mexc: BTC_USDT
-# dydx: BTC-USD
-
 # Enter start and end dates (YYYY-MM-DD)
-START_DATE = "2020-01-01"
+START_DATE = "2023-12-01"
 END_DATE = "2024-01-01"
 
 
 def main():
-    fetch_data = exchanges.exchange_functions.get(EXCHANGE)
+    try:
+        exchange_module = importlib.import_module(f'exchanges.{EXCHANGE}')
 
-    if fetch_data:
-        data = fetch_data(SYMBOL, START_DATE, END_DATE)
+        # Dynamically get the class from the module
+        ExchangeClass = getattr(exchange_module, EXCHANGE.capitalize())
+
+        # Instantiate the exchange class and fetch data
+        exchange = ExchangeClass(SYMBOL, START_DATE, END_DATE)
+        data = exchange.fetch_data()
         print(data)
-        data.to_csv(f'{SYMBOL}_{EXCHANGE}_{START_DATE}_{END_DATE}_funding_history.csv', index=False)
-    else:
-        print(f"Exchange {EXCHANGE} is not supported.")
+
+        data.to_csv(f'data/{SYMBOL}_{EXCHANGE}_{START_DATE}_{END_DATE}_funding_history.csv', index=False)
+    except (ImportError, AttributeError) as e:
+        print(f"Failed to import class for exchange '{EXCHANGE}'. Error: {e}")
 
 
 if __name__ == "__main__":
