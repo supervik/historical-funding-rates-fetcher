@@ -1,7 +1,7 @@
 import importlib
 
 # Enter exchange name: binance, bybit, gate, htx, kucoin, mexc, dydx
-EXCHANGE = "dydx"
+EXCHANGE = "binance"
 # Enter the symbol in the format: BTC-USDT
 SYMBOL = "ETH-USDT"
 
