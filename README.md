@@ -10,6 +10,7 @@ Discover more about this project and explore the insights in the article:
   - **Support for Multiple Exchanges**: Binance, Bybit, dYdX, Gate, HTX, Kucoin, MEXC.
   - **Customizable Fetching**: Users can specify parameters such as the exchange, trading pair, and the time range for data retrieval. Currently only USDT margined pairs are supported
   - **Data Export**: Results are saved to a CSV file for easy analysis.
+- **`exchanges/`**:Python modules for interacting with the APIs of various exchanges. Each module (*.py file in the exchanges directory) corresponds to a specific exchange and handles API communication and data parsing.
 - **`data/`**: Directory containing CSV files with funding rates for BTC and ETH (USDT or USD margined) covering the period from 2020 to 2023 for multiple exchanges. Each CSV file includes the following columns:
 
     | Column        | Description   |
